@@ -15,37 +15,25 @@ type to fit the data.
 ### PROGRAM:
 
 ```py
-import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-
-df = pd.read_csv('/content/AirPassengers.csv')
-
-data = df['#Passengers'].values
-
+data = np.array([3, 16, 156, 47, 246, 176, 233, 140, 130, 101, 166, 201, 200, 116, 118,
+                 52, 153, 232, 128, 27, 192, 168, 208, 187, 228, 86, 30, 151, 18, 254, 76, 112, 6])
 N = len(data)
-
 lags = range(35)
-
-
 autocorr_values = []
-
 mean_data = np.mean(data)
-
-
 variance_data = np.var(data)
-
+normalized_data = (data - mean_data) / np.sqrt(variance_data)
 for lag in lags:
     if lag == 0:
         autocorr_values.append(1)
     else:
-        
         auto_cov = np.sum((data[:-lag] - mean_data) * (data[lag:] - mean_data)) / N
         autocorr_values.append(auto_cov / variance_data) 
-
 plt.figure(figsize=(10, 6))
 plt.stem(lags, autocorr_values)
-plt.title('Autocorrelation of Air Passengers Data')
+plt.title('Autocorrelation of Data')
 plt.xlabel('Lag')
 plt.ylabel('Autocorrelation')
 plt.grid(True)
@@ -53,7 +41,7 @@ plt.show()
 ```
 
 ### OUTPUT:
-<img width="657" height="406" alt="Screen Shot 2026-05-11 at 09 09 07" src="https://github.com/user-attachments/assets/347be693-733c-43c9-bce7-ef3739cacf47" />
+<img width="655" height="413" alt="Screen Shot 2026-05-11 at 09 16 16" src="https://github.com/user-attachments/assets/e983b530-5a67-4742-9a75-3a4df4632a5c" />
 
 
 ### RESULT:
